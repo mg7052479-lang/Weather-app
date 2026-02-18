@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+
+}
+
+.card{
+    height: 100%;
+    width: 30%;
+    background-color: aqua;
+    border-radius: 20px;
+    margin: 100px auto;
+}
+
+.search{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background : linear-gradient(135deg, #89f7fe, #66a6ff);
+}
+
+img{
+    
+}
