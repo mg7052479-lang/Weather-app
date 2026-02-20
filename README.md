@@ -28,14 +28,6 @@ JavaScript (Vanilla JS)
 
 OpenWeather API
 
-📸 Preview
-
-(Add a screenshot of your app here)
-
-Example:
-
-![App Screenshot](screenshot.png)
-
 🔧 How It Works
 
 User enters a city name.
@@ -84,4 +76,4 @@ Add dark/light mode toggle
 
 👨‍💻 Author
 
-Mohammed
+Mohammed Ghouse ... 
