@@ -1,40 +1,68 @@
 *{
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+body{
+background: linear-gradient(to right, #1d976c, #93f9b9)
+}
+h1{
+  text-align: center;
+  margin: 50px auto;
+}
+
+#notes-input{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+}
+#notes-text{
+  width: 400px;
+  padding: 18px;
+  border-radius: 20px;
+  border: none;
+
+}
+#notes-color{
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border: none;
+  border-radius: 18px;
 
 }
 
-.card{
-    height: 100%;
-    width: 30%;
-    background-color: aqua;
-    border-radius: 20px;
-    margin: 100px auto;
-    
+#addbtn{
+border: none;
+  padding: 20px;
+  border-radius: 25px;
+}
+#notes-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
+    gap: 15px;
+    margin: 40px;
 }
 
-.search{
-    display: flex;
-    align-items: center;
-    border-radius: 30px;
-    justify-content: space-between;
-    background : linear-gradient(135deg, #89f7fe, #66a6ff);
+.note {
+  width: 220px;
+  min-height: 120px;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  color: #222;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
- .search input{
-    padding: 14px;
-    background-color: #fff;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    margin: 40px 30px ;
-    flex: 1;
-}
-.search img{
-   cursor: pointer;
-   right : 20px ;
-   height: 50px;
-   align-items: center;
+.note button {
+  margin-top: 10px;
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
