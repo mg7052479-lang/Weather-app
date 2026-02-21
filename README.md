@@ -26,7 +26,8 @@ CSS3
 
 JavaScript (Vanilla JS)
 
-OpenWeather API
+Featchibg api from:-
+(OpenWeather API)
 
 🔧 How It Works
 
