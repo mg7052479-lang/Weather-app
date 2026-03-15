@@ -1,40 +1,105 @@
-const apiKey = "5ed4382dc2a7234aa80cb4048278926e";
-const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+const noteColor = document.getElementById("notes-color");
+const notesContainer = document.getElementById("notes-container");
+const notesText = document.getElementById("notes-text");
+const addbtn = document.getElementById("addbtn");
 
-const weatherIcon = document.querySelector(".weather-icon img");
-const searchbox = document.querySelector(".search input");
-const searchbtn = document.querySelector(".search button");
+/* ======================
+   CREATE NOTE
+====================== */
+function createNote(text, color) {
+  const note = document.createElement("div");
+  note.className = "note";
+  note.style.background = color;
 
-async function checkWeather(city) {
-    const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+  const p = document.createElement("p");
+  p.textContent = text;
 
-    if (!response.ok) {
-        alert("City not found");
-        return;
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "Edit";
+
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "Delete";
+
+  // DELETE NOTE
+  delBtn.addEventListener("click", function () {
+    note.remove();
+    saveToLocalStorage();
+  });
+
+  // EDIT NOTE
+  editBtn.addEventListener("click", function () {
+    if (editBtn.textContent === "Edit") {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.value = p.textContent;
+
+      note.replaceChild(input, p);
+      editBtn.textContent = "Save";
+      input.focus();
+
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          saveEdit(note, p, input, editBtn);
+        }
+      });
+    } else {
+      const input = note.querySelector("input");
+      saveEdit(note, p, input, editBtn);
     }
+  });
 
-    const data = await response.json();
-
-    document.querySelector(".city-name").innerHTML = data.name;
-    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
-    document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
-    document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
-
-    const weatherMain = data.weather[0].main;
-
-    if (weatherMain === "Clouds") {
-        weatherIcon.src = "weather-app-img/images/clouds.png";
-    } else if (weatherMain === "Clear") {
-        weatherIcon.src = "weather-app-img/images/clear.png";
-    } else if (weatherMain === "Rain") {
-        weatherIcon.src = "weather-app-img/images/rain.png";
-    } else if (weatherMain === "Drizzle") {
-        weatherIcon.src = "weather-app-img/images/drizzle.png";
-    } else if (weatherMain === "Mist") {
-        weatherIcon.src = "weather-app-img/images/mist.png";
-    }
+  note.appendChild(p);
+  note.appendChild(editBtn);
+  note.appendChild(delBtn);
+  notesContainer.appendChild(note);
 }
 
-searchbtn.addEventListener("click", () => {
-    checkWeather(searchbox.value);
+/* ======================
+   SAVE EDIT
+====================== */
+function saveEdit(note, p, input, editBtn) {
+  p.textContent = input.value.trim() || p.textContent;
+  note.replaceChild(p, input);
+  editBtn.textContent = "Edit";
+  saveToLocalStorage();
+}
+
+/* ======================
+   ADD NOTE
+====================== */
+addbtn.addEventListener("click", function () {
+  const text = notesText.value.trim();
+  const color = noteColor.value;
+
+  if (!text) return;
+
+  createNote(text, color);
+  saveToLocalStorage();
+
+  notesText.value = "";
 });
+
+/* ======================
+   LOCAL STORAGE
+====================== */
+function saveToLocalStorage() {
+  const notes = [];
+
+  document.querySelectorAll(".note").forEach(note => {
+    notes.push({
+      text: note.querySelector("p").textContent,
+      color: note.style.background
+    });
+  });
+
+  localStorage.setItem("notes", JSON.stringify(notes));
+}
+
+function loadFromLocalStorage() {
+  const notes = JSON.parse(localStorage.getItem("notes")) || [];
+  notes.forEach(note => createNote(note.text, note.color));
+}
+
+// LOAD NOTES ON PAGE START
+loadFromLocalStorage();
+
